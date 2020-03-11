@@ -4,16 +4,23 @@ import { Dropdown } from 'semantic-ui-react';
 
 import { set as setLanguage } from '../../redux/reducers/language';
 
+import RussianFlag from './russian.svg';
+import EnglishFlag from './english.svg';
+
 const languageOptions = [
     {
         key: 'ru',
         value: 'ru',
-        text: 'Русский'
+        text: 'Русский',
+        flag: 'ru'
+        // image: { src: RussianFlag }
     },
     {
         key: 'en',
         value: 'en',
-        text: 'English'
+        text: 'English',
+        flag: 'us'
+
     }
 ];
 
@@ -29,8 +36,8 @@ const LanguageSelector = () => {
     );
 
     return (
-        <div>
-            <Dropdown value={language.locale} compact selection options={languageOptions} onChange={handleChange}/>
+        <div style={{ minWidth: '130px' }}>
+            <Dropdown value={language.locale} compact fluid selection options={languageOptions} onChange={handleChange}/>
         </div>
     );
 };
