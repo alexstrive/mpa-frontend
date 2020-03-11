@@ -11,6 +11,7 @@ export default (state = [], action) => {
     switch (action.type) {
     case LANGUAGE_SET:
         const locale = action.payload;
+        localStorage.setItem('locale', locale);
         return {
             locale,
             messages: messages[locale]
