@@ -28,7 +28,7 @@ class PatientContainer extends React.PureComponent {
             <section className="Patient">
                 <Card className="Patient-General"
                     header={patient.name}
-                    meta={patient.diseaseName}
+                    meta={<p><FormattedMessage id={`disease.1`} /></p>}
                     description={
                         <FormattedMessage
                             id="app.patient.birthday"
@@ -36,7 +36,6 @@ class PatientContainer extends React.PureComponent {
                         />
                     }
                 />
-                {console.log(patient)}
                 <SideBar/>
                 <div className={'Patient-Main'}>
                     <Switch>

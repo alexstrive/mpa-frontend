@@ -189,7 +189,7 @@ export class StatusDraftContainer extends React.Component {
                                             options={currentMedicines.map(medicine => ({
                                                 value: medicine.id,
                                                 key: medicine.id,
-                                                text: <FormattedMessage id={`app.patient.draft.drugs.${medicine.id}`} />
+                                                text: <FormattedMessage id={`drugs.${medicine.id}`} />
                                             }))}
                                             value={currentMedicines[index] ? currentMedicines[index].id : undefined}
                                             disabled

@@ -2,8 +2,9 @@ import React, { Fragment } from 'react';
 import { Form, Input } from 'semantic-ui-react';
 import './NewStatusForm.css';
 import AssociationForm from '../AssociationForm/AssociationForm';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
-export default class NewStatusForm extends React.Component {
+class NewStatusForm extends React.Component {
     state = {
         healthMatter: '',
         result: ''
@@ -86,7 +87,7 @@ export default class NewStatusForm extends React.Component {
 
     getResultFromType () {
         const props = {
-            label: 'Result',
+            label: <FormattedMessage id="app.patient.draft.attributes.result" />,
             value: this.state.result,
             onChange: this.onResultChange,
             onBlur: this.handleSubmit
@@ -96,7 +97,6 @@ export default class NewStatusForm extends React.Component {
 
         switch (attributeData && attributeData.type) {
         case 'bool':
-            props.label = 'Observed';
             props.defaultChecked = props.value ? JSON.parse(props.value) : false;
 
             props.onChange = async (...args) => {
@@ -110,8 +110,8 @@ export default class NewStatusForm extends React.Component {
 
             return (
                 <Fragment>
-                    <label>Result</label>
-                    <Form.Checkbox {...props} />
+                    <label><FormattedMessage id="app.patient.draft.attributes.result" /></label>
+                    <Form.Checkbox {...props} label={this.props.intl.formatMessage({ id: 'app.patient.draft.attributes.data.observed' })} />
                 </Fragment>
             );
 
@@ -119,7 +119,7 @@ export default class NewStatusForm extends React.Component {
             const options = attributeData.possibleValues.map(
                 ({ id, value }) => ({
                     key: value,
-                    text: value,
+                    text: <FormattedMessage id={`app.patient.draft.attributes.data.${value}`} />,
                     value: value
                 })
             );
@@ -153,7 +153,7 @@ export default class NewStatusForm extends React.Component {
         const options = diseaseData && diseaseData.map(attr => {
             return {
                 key: attr.id,
-                text: attr.name,
+                text: <FormattedMessage id={`app.patient.draft.attributes.${attr.id}`} />,
                 value: attr.id
             };
         });
@@ -165,9 +165,8 @@ export default class NewStatusForm extends React.Component {
                         <Form.Group widths='1'>
                             <Form.Field className='NewStatus-Field'>
                                 <Form.Select
-                                    label='Analysis or symptom'
+                                    label={<FormattedMessage id="app.patient.draft.attributes.title"/>}
                                     options={options}
-                                    placeholder='data'
                                     value={healthMatter}
                                     onChange={this.onHMChange}
                                     // disabled={disabled}
@@ -185,3 +184,5 @@ export default class NewStatusForm extends React.Component {
         );
     }
 }
+
+export default injectIntl(NewStatusForm);

@@ -2,22 +2,23 @@ import React from 'react';
 import { Button, Label } from 'semantic-ui-react';
 import './NextState.css';
 import AssociationForm from '../AssociationForm/AssociationForm';
+import { FormattedMessage } from 'react-intl';
 
 function getLabel (recommended) {
     if (recommended === null) {
         return {
             color: 'orange',
-            text: 'недостаточно информации'
+            text: <FormattedMessage id="app.patient.draft.nextState.notEnoughInformation" />
         };
     } if (!recommended) {
         return {
             color: 'red',
-            text: 'не рекомендуется'
+            text: <FormattedMessage id="app.patient.draft.nextState.notRecommend"/>
         };
     }
     return {
         color: 'green',
-        text: 'рекомендуется'
+        text: <FormattedMessage id="app.patient.draft.nextState.recommend" />
     };
 }
 export const NextState = (props) => (
@@ -31,16 +32,16 @@ export const NextState = (props) => (
             <h3 className='States-Heading'>
                 {props.state.name}
             </h3>
-            <p>description: {props.state.description}</p>
+            <p><FormattedMessage id="app.patient.draft.nextState.description" />: <FormattedMessage id={`state.${props.state.id}.description`} /></p>
             {props.errors && <div>
-                errors:
+                <FormattedMessage id="app.patient.draft.nextState.errors.title" />:
                 {props.errors.map((error, i) =>
-                    <p key={i}>code: {error.code}, reason: {error.reason}</p>
+                    <p key={i}><FormattedMessage id="app.patient.draft.nextState.errors.code" />: {error.code}, <FormattedMessage id="app.patient.draft.nextState.errors.reason" />: {error.reason}</p>
                 )}
             </div>
             }
             <Button className="NextState-Button" basic color='teal'
-                onClick={() => props.confirmState(props.state)}>Confirm</Button>
+                onClick={() => props.confirmState(props.state)}><FormattedMessage id="app.patient.draft.nextState.confirm" /></Button>
         </div>
     </div>
 );
