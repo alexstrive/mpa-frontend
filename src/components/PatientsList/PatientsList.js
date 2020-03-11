@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as patientsThunks from '../../redux/thunks/patients';
 import { NavLink } from 'react-router-dom';
 
+import { FormattedMessage } from 'react-intl';
+
 class PatientsListContainer extends React.Component {
     componentDidMount () {
         this.props.getPatients();
@@ -13,7 +15,7 @@ class PatientsListContainer extends React.Component {
 
         return (
             <section className={'PatientsList'}>
-                <h2>Patients</h2>
+                <h2><FormattedMessage id="app.patients.title"/></h2>
                 <ul className={'PatientsList-List'}>
                     {patients.map(patient => {
                         return (

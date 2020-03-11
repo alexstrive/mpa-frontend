@@ -10,12 +10,14 @@ export const headerRoutes = [
     {
         name: 'Пациенты',
         path: '/patients',
+        localeId: 'app.menu.showPatients',
         component: PatientsList,
         exact: true
     },
     {
         name: 'Создать пациента',
         path: '/patients/new',
+        localeId: 'app.menu.createPatient',
         component: NewPatientForm,
         exact: true
     },
