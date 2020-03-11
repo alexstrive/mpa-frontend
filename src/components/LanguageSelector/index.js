@@ -10,7 +10,6 @@ const languageOptions = [
         value: 'ru',
         text: 'Русский',
         flag: 'ru'
-        // image: { src: RussianFlag }
     },
     {
         key: 'en',
