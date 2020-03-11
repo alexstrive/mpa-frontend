@@ -31,13 +31,13 @@ export const sidebarRoutes = [
     {
         name: 'Черновик состояния',
         path: 'draft',
-        localeId: 'app.patient.sidebar.draftStatus',
+        localeId: 'app.patient.sidebar.draft',
         component: States
     },
     {
         name: 'Текущее состояние',
         path: 'current',
-        localeId: 'app.patient.sidebar.currentStatus',
+        localeId: 'app.patient.sidebar.status',
         component: CurrentState
     },
     {
