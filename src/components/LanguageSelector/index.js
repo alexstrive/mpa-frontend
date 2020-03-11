@@ -1,6 +1,8 @@
-import React from 'react';
-
+import React, { useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown } from 'semantic-ui-react';
+
+import { set as setLanguage } from '../../redux/reducers/language';
 
 const languageOptions = [
     {
@@ -16,9 +18,19 @@ const languageOptions = [
 ];
 
 const LanguageSelector = () => {
+    const language = useSelector(state => state.language);
+    const dispatch = useDispatch();
+
+    const handleChange = useCallback(
+        (event, data) => {
+            dispatch(setLanguage(data.value));
+        },
+        [dispatch]
+    );
+
     return (
         <div>
-            <Dropdown fluid selection options={languageOptions}/>
+            <Dropdown value={language.locale} compact selection options={languageOptions} onChange={handleChange}/>
         </div>
     );
 };
