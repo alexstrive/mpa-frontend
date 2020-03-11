@@ -111,7 +111,7 @@ class NewStatusForm extends React.Component {
             return (
                 <Fragment>
                     <label><FormattedMessage id="app.patient.draft.attributes.result" /></label>
-                    <Form.Checkbox {...props} label={this.props.intl.formatMessage({ id: 'app.patient.draft.attributes.data.observed' })} />
+                    <Form.Checkbox {...props} label={this.props.intl.formatMessage({ id: 'attributes.data.observed' })} />
                 </Fragment>
             );
 
@@ -119,7 +119,7 @@ class NewStatusForm extends React.Component {
             const options = attributeData.possibleValues.map(
                 ({ id, value }) => ({
                     key: value,
-                    text: <FormattedMessage id={`app.patient.draft.attributes.data.${value}`} />,
+                    text: <FormattedMessage id={`attributes.data.${value}`} />,
                     value: value
                 })
             );
@@ -153,7 +153,7 @@ class NewStatusForm extends React.Component {
         const options = diseaseData && diseaseData.map(attr => {
             return {
                 key: attr.id,
-                text: <FormattedMessage id={`app.patient.draft.attributes.${attr.id}`} />,
+                text: <FormattedMessage id={`attribute.${attr.id}`} />,
                 value: attr.id
             };
         });

@@ -8,8 +8,8 @@ import * as patientThunks from '../../redux/thunks/patient';
 import { FormattedMessage } from 'react-intl';
 
 const genderOptions = [
-    { key: 'm', text: 'Male', value: 'male' },
-    { key: 'f', text: 'Female', value: 'female' }
+    { key: 'm', text: <FormattedMessage id="app.createPatient.gender.male"/>, value: 'male' },
+    { key: 'f', text: <FormattedMessage id="app.createPatient.gender.female" />, value: 'female' }
 ];
 
 class NewPatientFormContainer extends React.Component {

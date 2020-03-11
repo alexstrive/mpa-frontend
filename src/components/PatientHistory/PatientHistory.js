@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as historyThunks from '../../redux/thunks/history';
 import { Loader } from 'semantic-ui-react';
 
+import { FormattedMessage, FormattedDate } from 'react-intl';
+
 class PatientHistoryContainer extends React.Component {
     componentDidMount () {
         const { patient, getHistory } = this.props;
@@ -21,21 +23,31 @@ class PatientHistoryContainer extends React.Component {
 
         return (
             <section className="History">
-                <h3>История пациента</h3>
+                <h3><FormattedMessage id="app.patient.history.title" /></h3>
                 {history ? history.map(event =>
                     <div key={event.id}>
                         {console.log(event)}
-                        <p> <b>Дата:</b> {event.submittedOn}</p>
-                        <p><b>Название:</b> {event.state.name}</p>
-                        <p><b>Описание:</b> {event.state.description}</p>
+                        <p>
+                            <b><FormattedMessage id="app.patient.history.item.date" />: </b>
+                            <FormattedDate
+                                value={event.submittedOn}
+                                year="numeric"
+                                month="numeric"
+                                day="numeric"
+                                hour="numeric"
+                                minute="numeric"
+                            />
+                        </p>
+                        <p><b><FormattedMessage id="app.patient.history.item.title" />: </b> {event.state.name}</p>
+                        <p><b><FormattedMessage id="app.patient.history.item.description" />:</b> <FormattedMessage id={`state.${event.state.id}.description`} /></p>
                         { event.attributes.length
-                            ? <p><b>Атрибуты:</b>
+                            ? <p><b><FormattedMessage id="app.patient.history.item.attributes" />:</b>
                                 <ul>
                                     {event.attributes.map(attr =>
                                         <li key={attr.name}>
-                                            <b>Название:</b> {attr.name}
+                                            <b><FormattedMessage id="app.patient.history.item.attributes.title" />:</b> <FormattedMessage id={`attribute.${attr.id}`} />
                                             <br/>
-                                            <b>Доза:</b> {attr.value}
+                                            <b><FormattedMessage id="app.patient.history.item.attributes.dose" />:</b> {attr.value}
                                         </li>)}
                                 </ul>
                             </p> : null}

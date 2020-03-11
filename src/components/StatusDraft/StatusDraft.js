@@ -71,7 +71,7 @@ export class StatusDraftContainer extends React.Component {
             toast({
                 type: 'success',
                 icon: 'save',
-                title: 'Черновик сохранен',
+                title: <FormattedMessage id="app.toast.saved" />,
                 animation: 'bounce',
                 time: 5000
             });
@@ -81,7 +81,7 @@ export class StatusDraftContainer extends React.Component {
             toast({
                 type: 'error',
                 icon: 'save',
-                title: 'Ошибка при сохраненении',
+                title: <FormattedMessage id="app.toast.errorOnSave" />,
                 animation: 'bounce',
                 time: 3000
             });
@@ -189,7 +189,7 @@ export class StatusDraftContainer extends React.Component {
                                             options={currentMedicines.map(medicine => ({
                                                 value: medicine.id,
                                                 key: medicine.id,
-                                                text: <FormattedMessage id={`drugs.${medicine.id}`} />
+                                                text: <FormattedMessage id={`drug.${medicine.id}`} />
                                             }))}
                                             value={currentMedicines[index] ? currentMedicines[index].id : undefined}
                                             disabled
@@ -212,7 +212,7 @@ export class StatusDraftContainer extends React.Component {
                                             options={notYetChosenMedicines.map(medicine => ({
                                                 value: medicine.id,
                                                 key: medicine.id,
-                                                text: <FormattedMessage id={`app.patient.draft.drugs.${medicine.id}`} />
+                                                text: <FormattedMessage id={`drug.${medicine.id}`} />
                                             }))}
                                             onChange={(e, option) => this.onDraftUpdate(undefined, option.value)}
                                         />
@@ -231,7 +231,6 @@ export class StatusDraftContainer extends React.Component {
                                 onDraftUpdate={this.onDraftUpdate}
                                 diseaseData={alreadyChosenAttributes.filter(attr => attr.id === attribute.id)}
                                 attribute={attribute}
-                            // disabled
                             />
                         ))}
                         {

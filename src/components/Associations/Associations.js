@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import * as associationsThunks from '../../redux/thunks/associations';
-
+import { FormattedMessage } from 'react-intl';
 export class AssociationsContainer extends React.PureComponent {
     async componentDidMount () {
         await this.props.getAssociations(this.props.patientId);
@@ -12,7 +12,7 @@ export class AssociationsContainer extends React.PureComponent {
 
         return (
             <div className='States-Draft'>
-                <h2>Ассоциации</h2>
+                <h2><FormattedMessage id="app.patient.associations.title" /></h2>
                 {associations.map(association => {
                     return (
                         <div key={association.id}>
