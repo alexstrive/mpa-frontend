@@ -31,21 +31,25 @@ export const sidebarRoutes = [
     {
         name: 'Черновик состояния',
         path: 'draft',
+        localeId: 'app.patient.sidebar.draftStatus',
         component: States
     },
     {
         name: 'Текущее состояние',
         path: 'current',
+        localeId: 'app.patient.sidebar.currentStatus',
         component: CurrentState
     },
     {
         name: 'История',
         path: 'history',
+        localeId: 'app.patient.sidebar.history',
         component: PatientHistory
     },
     {
         name: 'Ассоциации',
         path: 'associations',
+        localeId: 'app.patient.sidebar.associations',
         component: Associations
     }
 ];

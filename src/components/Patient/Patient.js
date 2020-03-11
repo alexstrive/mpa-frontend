@@ -7,6 +7,8 @@ import { Dimmer, Loader, Card } from 'semantic-ui-react';
 import * as patientThunks from '../../redux/thunks/patient';
 import './Patient.css';
 
+import { FormattedMessage, FormattedDate } from 'react-intl';
+
 class PatientContainer extends React.PureComponent {
     componentDidMount () {
         this.props.getPatient(this.props.match.params.patientId);
@@ -27,7 +29,12 @@ class PatientContainer extends React.PureComponent {
                 <Card className="Patient-General"
                     header={patient.name}
                     meta={patient.diseaseName}
-                    description={`Дата рождения: ${patient.birthDate}`}
+                    description={
+                        <FormattedMessage
+                            id="app.patient.birthday"
+                            values={{ birthday: <FormattedDate value={patient.birthDate} /> }}
+                        />
+                    }
                 />
                 {console.log(patient)}
                 <SideBar/>
