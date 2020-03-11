@@ -5,16 +5,24 @@ import { Link } from 'react-router-dom';
 
 import { FormattedMessage } from 'react-intl';
 
+import LanguageSelector from '../LanguageSelector';
+
 export const Header = () => {
     return (
         <Menu attached="top">
+
             {headerRoutes.filter(route => route.name).map(route => (
-                <Link to={route.path} key={route.name}>
-                    <Menu.Item as={'li'}>
+                <Menu.Item>
+                    <Link to={route.path} key={route.name}>
                         <FormattedMessage id={route.localeId} />
-                    </Menu.Item>
-                </Link>
+                    </Link>
+                </Menu.Item>
             ))}
+
+            <Menu.Menu position="right">
+                <Menu.Item><LanguageSelector /></Menu.Item>
+            </Menu.Menu>
+
         </Menu>
     );
 };

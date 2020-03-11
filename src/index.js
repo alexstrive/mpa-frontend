@@ -11,13 +11,9 @@ import { IntlProvider } from 'react-intl';
 
 import './index.css';
 
-import messages from './translations';
-
-const locale = navigator.language.slice(0, 2);
-
 ReactDOM.render(
     <Provider store={store}>
-        <IntlProvider locale={locale} messages={messages[locale]}>
+        <IntlProvider locale={store.getState().language.locale} messages={store.getState().language.messages}>
             <BrowserRouter>
                 <App />
             </BrowserRouter>
