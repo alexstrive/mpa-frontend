@@ -4,9 +4,6 @@ import { Dropdown } from 'semantic-ui-react';
 
 import { set as setLanguage } from '../../redux/reducers/language';
 
-import RussianFlag from './russian.svg';
-import EnglishFlag from './english.svg';
-
 const languageOptions = [
     {
         key: 'ru',
