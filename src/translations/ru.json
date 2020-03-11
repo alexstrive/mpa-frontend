@@ -6,5 +6,6 @@
     "app.createPatient.gender": "Пол",
     "app.createPatient.age": "Возраст",
     "app.createPatient.submit": "Сохранить",
-    "app.patients.title": "Пациенты"
+    "app.patients.title": "Пациенты",
+    "app.patient.draft.changed": "Изменён {lastUpdate}"
 }

@@ -10,6 +10,8 @@ import * as diseaseThunks from '../../redux/thunks/disease';
 import { toast } from 'react-semantic-toasts';
 import './StatusDraft.css';
 
+import { FormattedMessage, FormattedDate } from 'react-intl';
+
 export class StatusDraftContainer extends React.Component {
     state = {
         symptomsAmount: 1,
@@ -150,66 +152,76 @@ export class StatusDraftContainer extends React.Component {
 
         let notYetChosenMedicines = medicines.filter(m => !currentMedicines.some(current => current.id === m.id));
 
+        console.log();
         return (
             <div className='States-Draft Draft'>
                 <Dimmer.Dimmable blurring dimmed={this.props.loading || this.state.loading}>
                     <Dimmer active={this.props.loading || this.state.loading} inverted>
-                        <Loader/>
+                        <Loader />
                     </Dimmer>
-                    <AssociationForm getData={this.getAssociationData}/>
-                    <h2 className='States-Heading'>Черновик состояния</h2>
+                    <AssociationForm getData={this.getAssociationData} />
+                    <h2 className='States-Heading'><FormattedMessage id="app.patient.draft.title" /></h2>
                     <time className='Draft-UpdatedOn'>
-                        Updated on: {status.submittedOn}
+                        <FormattedMessage id="app.patient.draft.changed"
+                            values={{
+                                lastUpdate:
+                                    <FormattedDate
+                                        value={status.submittedOn}
+                                        year='numeric'
+                                        month='long'
+                                        day='numeric'
+                                        hour='numeric'
+                                        minute='numeric'
+                                    />
+                            }} />
                     </time>
                     {currentState &&
-                    <div style={{ position: 'relative', zIndex: 1 }}>
-                        <p><b>Текущее состояние</b></p>
-                        <p>state name: {currentState.name}</p>
-                        <p>
-                            description: {currentState.description}
-                        </p>
-                        {(currentMedicines.length !== 0 || notYetChosenMedicines.length !== 0) && <h3>Лекарства</h3>}
-                        {
-                            currentMedicines.length !== 0 && currentMedicines.map((medicine, index) => (
-                                <div className='Draft-StatusFormContainer' key={index}>
-                                    <Select
-                                        placeholder='Лекарство'
-                                        options={currentMedicines.map(medicine => ({
-                                            value: medicine.id,
-                                            key: medicine.id,
-                                            text: medicine.name
-                                        }))}
-                                        value={currentMedicines[index] ? currentMedicines[index].id : undefined}
-                                        disabled
-                                    />
-                                    <AssociationForm
-                                        style={{ position: 'relative' }}
-                                        getData={() => ({
-                                            predicate: `eq({medicine.id}, ${currentMedicines[index]})`,
-                                            type: 'medicine'
-                                        })}
-                                    />
-                                </div>
-                            ))
-                        }
-                        {
-                            notYetChosenMedicines.length > 0 && (
-                                <div className='Draft-StatusFormContainer'>
-                                    <Select
-                                        placeholder='Лекарство'
-                                        options={notYetChosenMedicines.map(medicine => ({
-                                            value: medicine.id,
-                                            key: medicine.id,
-                                            text: medicine.name
-                                        }))}
-                                        onChange={(e, option) => this.onDraftUpdate(undefined, option.value)}
-                                    />
-                                </div>
-                            )
-                        }
-                    </div>
+                        <div style={{ position: 'relative', zIndex: 1 }}>
+                            <p><b><FormattedMessage id="app.patient.draft.state"/></b></p>
+                            <p><FormattedMessage id="app.patient.draft.state.title"/>: {currentState.name}</p>
+                            <p><FormattedMessage id="app.patient.draft.state.description"/>: {currentState.description}</p>
+                            {(currentMedicines.length !== 0 || notYetChosenMedicines.length !== 0) && <h3><FormattedMessage id="app.patient.draft.drugs" /></h3>}
+                            {
+                                currentMedicines.length !== 0 && currentMedicines.map((medicine, index) => (
+                                    <div className='Draft-StatusFormContainer' key={index}>
+                                        <Select
+                                            placeholder={<FormattedMessage id="app.patient.draft.drugs.placeholder"/>}
+                                            options={currentMedicines.map(medicine => ({
+                                                value: medicine.id,
+                                                key: medicine.id,
+                                                text: <FormattedMessage id={`app.patient.draft.drugs.${medicine.id}`} />
+                                            }))}
+                                            value={currentMedicines[index] ? currentMedicines[index].id : undefined}
+                                            disabled
+                                        />
+                                        <AssociationForm
+                                            style={{ position: 'relative' }}
+                                            getData={() => ({
+                                                predicate: `eq({medicine.id}, ${currentMedicines[index]})`,
+                                                type: 'medicine'
+                                            })}
+                                        />
+                                    </div>
+                                ))
+                            }
+                            {
+                                notYetChosenMedicines.length > 0 && (
+                                    <div className='Draft-StatusFormContainer'>
+                                        <Select
+                                            placeholder={<FormattedMessage id="app.patient.draft.drugs.placeholder" />}
+                                            options={notYetChosenMedicines.map(medicine => ({
+                                                value: medicine.id,
+                                                key: medicine.id,
+                                                text: <FormattedMessage id={`app.patient.draft.drugs.${medicine.id}`} />
+                                            }))}
+                                            onChange={(e, option) => this.onDraftUpdate(undefined, option.value)}
+                                        />
+                                    </div>
+                                )
+                            }
+                        </div>
                     }
-                    <Divider/>
+                    <Divider />
                     <div style={{ position: 'relative' }}>
                         {attributes && attributes.map(attribute => (
                             <NewStatusForm
@@ -219,7 +231,7 @@ export class StatusDraftContainer extends React.Component {
                                 onDraftUpdate={this.onDraftUpdate}
                                 diseaseData={alreadyChosenAttributes.filter(attr => attr.id === attribute.id)}
                                 attribute={attribute}
-                                // disabled
+                            // disabled
                             />
                         ))}
                         {
