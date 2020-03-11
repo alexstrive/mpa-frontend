@@ -5,6 +5,8 @@ import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
 import * as patientThunks from '../../redux/thunks/patient';
 
+import { FormattedMessage } from 'react-intl';
+
 const genderOptions = [
     { key: 'm', text: 'Male', value: 'male' },
     { key: 'f', text: 'Female', value: 'female' }
@@ -32,10 +34,10 @@ class NewPatientFormContainer extends React.Component {
   render () {
       return (
           <section className={'NewPatientForm'}>
-              <h2>Создать нового пациента</h2>
+              <h2><FormattedMessage id="app.createPatient.title"/></h2>
               <Form>
                   <Form.Field
-                      label="Name"
+                      label={<FormattedMessage id="app.createPatient.name"/>}
                       type="text"
                       control={Input}
                       onChange={(event) =>
@@ -43,7 +45,7 @@ class NewPatientFormContainer extends React.Component {
                       }
                   />
                   <Form.Field
-                      label="Gender"
+                      label={<FormattedMessage id="app.createPatient.gender" />}
                       control={Select}
                       options={genderOptions}
                       onChange={(event) =>
@@ -51,7 +53,7 @@ class NewPatientFormContainer extends React.Component {
                       }
                   />
                   <Form.Field>
-                      <label>Age</label>
+                      <label><FormattedMessage id="app.createPatient.age" /></label>
                       <SemanticDatepicker
                           onDateChange={(date) => this.handleOnChange(date, 'birthDate')}
                       />
@@ -59,7 +61,7 @@ class NewPatientFormContainer extends React.Component {
                   <Button
                       positive
                       icon="checkmark"
-                      content="Save"
+                      content={<FormattedMessage id="app.createPatient.submit" />}
                       type="submit"
                       onClick={this.savePatient}
                   />

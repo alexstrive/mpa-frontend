@@ -1,5 +1,10 @@
 {
     "app.menu.showPatients": "Patients",
     "app.menu.createPatient": "Create Patient",
+    "app.createPatient.title": "Create Patient",
+    "app.createPatient.name": "Name",
+    "app.createPatient.gender": "Gender",
+    "app.createPatient.age": "Age",
+    "app.createPatient.submit": "Save",
     "app.patients.title": "Patients"
 }

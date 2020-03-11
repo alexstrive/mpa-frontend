@@ -1,5 +1,10 @@
 {
     "app.menu.showPatients": "Пациенты",
     "app.menu.createPatient": "Создать пациента",
+    "app.createPatient.title": "Создать пациента",
+    "app.createPatient.name": "Имя",
+    "app.createPatient.gender": "Пол",
+    "app.createPatient.age": "Возраст",
+    "app.createPatient.submit": "Сохранить",
     "app.patients.title": "Пациенты"
 }
