@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { PatientsList } from './components/PatientsList/PatientsList';
 import { Patient } from './components/Patient/Patient';
 import { Associations } from './components/Associations/Associations';
@@ -5,6 +7,8 @@ import { CurrentState } from './components/CurrentState/CurrentState';
 import { States } from './components/States/States';
 import { NewPatientForm } from './components/NewPatientForm/NewPatientForm';
 import { PatientHistory } from './components/PatientHistory/PatientHistory';
+
+import Anamnesis from './components/Anamnesis';
 
 export const headerRoutes = [
     {
@@ -51,6 +55,12 @@ export const sidebarRoutes = [
         path: 'associations',
         localeId: 'app.patient.sidebar.associations',
         component: Associations
+    },
+    {
+        name: 'Anamnesis',
+        path: 'anamnesis',
+        localeId: 'app.patient.sidebard.anamensis',
+        component: () => <React.Suspense fallback={() => 'loading'}><Anamnesis /> </React.Suspense>
     }
 ];
 
