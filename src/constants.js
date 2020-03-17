@@ -59,7 +59,7 @@ export const sidebarRoutes = [
     {
         name: 'Anamnesis',
         path: 'anamnesis',
-        localeId: 'app.patient.sidebard.anamensis',
+        localeId: 'app.patient.sidebar.anamnesis',
         component: () => <React.Suspense fallback={() => 'loading'}><Anamnesis /> </React.Suspense>
     }
 ];

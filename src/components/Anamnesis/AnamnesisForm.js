@@ -1,7 +1,9 @@
-import React, { useState, useCallback } from 'react';
-import { Form } from 'semantic-ui-react';
-import { useForm, Controller } from 'react-hook-form';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Form, Grid } from 'semantic-ui-react';
+import { useForm, Controller, ErrorMessage } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
+
+import { v4 } from 'uuid';
 
 const diseases = [
     { key: 'disease.1', value: 1, text: <FormattedMessage id="disease.1"/> },
@@ -14,47 +16,89 @@ const states = [
     { key: 'disease.state.HEALED', value: 'HEALED', text: <FormattedMessage id="disease.state.HEALED" /> }
 ];
 
-const AnamnesisForm = ({ anamnesis }) => {
-    const { control, handleSubmit } = useForm();
-    const onSubmit = data => console.log(data);
+const AnamnesisForm = ({ anamnesis, onSubmit }) => {
+    const { control, handleSubmit, errors, clearError } = useForm();
 
-    const [recordNumber, setRecordNumber] = useState(0);
+    const [records, setRecords] = useState(anamnesis.map(diseaseCase => ({ ...diseaseCase, uuid: v4() })));
 
-    const handleAdd = useCallback(
-        () => {
-            setRecordNumber(recordNumber + 1);
+    const handleAdd = useCallback(() => { setRecords([...records, { uuid: v4() }]); }, [records]);
+    const handleRemove = useCallback(
+        (index) => {
+            setRecords([...records.slice(0, index), ...records.slice(index + 1)]);
         },
-        [recordNumber]
+        [records]
     );
 
-    const newRecords = Array(recordNumber).fill({});
+    useEffect(() => {
+        clearError();
+    }, []);
+
+    console.log(errors);
 
     return (
         <div>
             <Form onSubmit={handleSubmit(onSubmit)}>
-                {anamnesis.concat(newRecords).map((diseaseCase, i) => (
-                    <Form.Group widths={'equal'} key={i}>
-                        <Controller
-                            as={<Form.Select options={diseases} />}
-                            name={`diseaseId[${i}]`}
-                            onChange={([event, data]) => data.value}
-                            defaultValue={diseaseCase.diseaseId}
-                            control={control}
-                        />
+                <Grid>
+                    {records.map((diseaseCase, i) => (
+                        <Grid.Row key={diseaseCase.uuid}>
+                            <Grid.Column width={12}>
 
-                        <Controller
-                            as={<Form.Select options={states}/>}
-                            name={`diseaseState[${i}]`}
-                            onChange={([event, data]) => data.value}
-                            defaultValue={diseaseCase.state}
-                            control={control}
-                        />
-                    </Form.Group>
-                ))}
+                                <Controller
+                                    as={
+                                        <Form.Select
+                                            fluid
+                                            options={diseases} error={errors.diseaseId && errors.diseaseId[i]}
+                                            placeholder={<FormattedMessage id="app.patient.anamnesis.form.placeholder.diseaseId" />}
+                                        />
+                                    }
+                                    name={`diseaseId[${i}]`}
+                                    onChange={([event, data]) => data.value}
+                                    rules={{ required: 'this is required' }}
+                                    defaultValue={diseaseCase.diseaseId}
+                                    control={control}
 
-                <Form.Button fluid onClick={handleAdd}>Add Record</Form.Button>
+                                />
 
-                <Form.Button type='submit' positive>Save</Form.Button>
+                            </Grid.Column>
+
+                            <Grid.Column width={3}>
+                                <Controller
+                                    as={
+                                        <Form.Select
+                                            fluid
+                                            options={states}
+                                            error={errors.diseaseId && errors.diseaseState[i]}
+                                            placeholder={<FormattedMessage id="app.patient.anamnesis.form.placeholder.diseaseState" />}
+                                        />
+                                    }
+                                    name={`diseaseState[${i}]`}
+                                    onChange={([event, data]) => data.value}
+                                    rules={{ required: true }}
+                                    defaultValue={diseaseCase.state}
+                                    control={control}
+
+                                />
+                            </Grid.Column>
+
+                            <Grid.Column width={1}>
+                                <Form.Button icon="remove" onClick={() => handleRemove(i)}></Form.Button>
+                            </Grid.Column>
+                        </Grid.Row>
+
+                    ))}
+                </Grid>
+
+                <Grid>
+                    <Grid.Row>
+                        <Grid.Column width={12}>
+                            <Form.Button fluid onClick={handleAdd}>Add Record</Form.Button>
+                        </Grid.Column>
+                        <Grid.Column width={4}>
+                            <Form.Button fluid type="submit" positive>Save</Form.Button>
+                        </Grid.Column>
+                    </Grid.Row>
+                </Grid>
+
             </Form>
         </div>
     );

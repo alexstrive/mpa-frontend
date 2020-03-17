@@ -11,7 +11,7 @@ const i18nApp = () => {
     return (
         <div>
             <SWRConfig value={{
-                refreshInterval: 3000,
+
                 fetcher: (...args) => fetch(...args).then(res => res.json())
             }}>
                 <IntlProvider locale={language.locale} messages={language.messages}>
