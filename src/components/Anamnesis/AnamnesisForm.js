@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Form, Grid } from 'semantic-ui-react';
-import { useForm, Controller, ErrorMessage } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import { v4 } from 'uuid';
@@ -17,7 +17,7 @@ const states = [
 ];
 
 const AnamnesisForm = ({ anamnesis, onSubmit }) => {
-    const { control, handleSubmit, errors, clearError } = useForm();
+    const { control, handleSubmit, errors } = useForm();
 
     const [records, setRecords] = useState(anamnesis.map(diseaseCase => ({ ...diseaseCase, uuid: v4() })));
 
@@ -29,12 +29,6 @@ const AnamnesisForm = ({ anamnesis, onSubmit }) => {
         [records]
     );
 
-    useEffect(() => {
-        clearError();
-    }, []);
-
-    console.log(errors);
-
     return (
         <div>
             <Form onSubmit={handleSubmit(onSubmit)}>
@@ -42,7 +36,6 @@ const AnamnesisForm = ({ anamnesis, onSubmit }) => {
                     {records.map((diseaseCase, i) => (
                         <Grid.Row key={diseaseCase.uuid}>
                             <Grid.Column width={12}>
-
                                 <Controller
                                     as={
                                         <Form.Select
@@ -53,12 +46,9 @@ const AnamnesisForm = ({ anamnesis, onSubmit }) => {
                                     }
                                     name={`diseaseId[${i}]`}
                                     onChange={([event, data]) => data.value}
-                                    rules={{ required: 'this is required' }}
                                     defaultValue={diseaseCase.diseaseId}
                                     control={control}
-
                                 />
-
                             </Grid.Column>
 
                             <Grid.Column width={3}>
@@ -73,10 +63,8 @@ const AnamnesisForm = ({ anamnesis, onSubmit }) => {
                                     }
                                     name={`diseaseState[${i}]`}
                                     onChange={([event, data]) => data.value}
-                                    rules={{ required: true }}
                                     defaultValue={diseaseCase.state}
                                     control={control}
-
                                 />
                             </Grid.Column>
 

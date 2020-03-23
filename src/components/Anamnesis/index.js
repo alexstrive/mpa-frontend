@@ -2,19 +2,24 @@ import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import useSWR from 'swr';
 import { FormattedMessage } from 'react-intl';
+
 import AnamnesisForm from './AnamnesisForm';
 import postAnamnesis from './postAnamnesis';
+
+const patientSWRKey = (patient) => `${process.env.REACT_APP_ANAMNESIS_ENDPOINT_URL}?patientId=${patient.id}`;
 
 const Anamnesis = () => {
     const patient = useSelector(state => state.patient);
 
-    const { data: anamnesis } = useSWR(`${process.env.REACT_APP_ANAMNESIS_ENDPOINT_URL}?patientId=${patient.id}`, { suspense: true });
+    const { data: anamnesis, mutate } = useSWR(patientSWRKey(patient), { suspense: true });
 
     const handleSubmit = useCallback(
-        (data) => {
-            const cases = data.diseaseId.reduce((acc, diseaseId, index) => ([...acc, { diseaseId, state: data.diseaseState[index] }]), []);
+        async (data = { diseaseId: [], diseaseState: [] }) => {
+            // format request object
+            const cases = (data.diseaseId && data.diseaseId.reduce((acc, diseaseId, index) => ([...acc, { diseaseId, state: data.diseaseState[index] }]), [])) || [];
 
-            return fetch(postAnamnesis(JSON.stringify({ patientId: patient.id, cases })));
+            await fetch(postAnamnesis({ patientId: patient.id, cases }));
+            mutate(cases);
         },
         []
     );

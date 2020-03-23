@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Dimmer, Divider, Loader, Select } from 'semantic-ui-react';
+import { Dimmer, Divider, Loader } from 'semantic-ui-react';
 import NewStatusForm from '../NewStatusForm/NewStatusForm';
 import AssociationForm from '../AssociationForm/AssociationForm';
 import * as patientThunks from '../../redux/thunks/patient';
@@ -9,6 +9,7 @@ import * as nextStatesThunks from '../../redux/thunks/nextStates';
 import * as diseaseThunks from '../../redux/thunks/disease';
 import { toast } from 'react-semantic-toasts';
 import './StatusDraft.css';
+import Drugs from '../Drugs';
 
 import { FormattedMessage, FormattedDate } from 'react-intl';
 
@@ -152,7 +153,6 @@ export class StatusDraftContainer extends React.Component {
 
         let notYetChosenMedicines = medicines.filter(m => !currentMedicines.some(current => current.id === m.id));
 
-        console.log();
         return (
             <div className='States-Draft Draft'>
                 <Dimmer.Dimmable blurring dimmed={this.props.loading || this.state.loading}>
@@ -175,52 +175,14 @@ export class StatusDraftContainer extends React.Component {
                                     />
                             }} />
                     </time>
-                    {currentState &&
-                        <div style={{ position: 'relative', zIndex: 1 }}>
-                            <p><b><FormattedMessage id="app.patient.draft.state"/></b></p>
-                            <p><FormattedMessage id="app.patient.draft.state.title"/>: {currentState.name}</p>
-                            <p><FormattedMessage id="app.patient.draft.state.description"/>: {currentState.description}</p>
-                            {(currentMedicines.length !== 0 || notYetChosenMedicines.length !== 0) && <h3><FormattedMessage id="app.patient.draft.drugs" /></h3>}
-                            {
-                                currentMedicines.length !== 0 && currentMedicines.map((medicine, index) => (
-                                    <div className='Draft-StatusFormContainer' key={index}>
-                                        <Select
-                                            placeholder={<FormattedMessage id="app.patient.draft.drugs.placeholder"/>}
-                                            options={currentMedicines.map(medicine => ({
-                                                value: medicine.id,
-                                                key: medicine.id,
-                                                text: <FormattedMessage id={`drug.${medicine.id}`} />
-                                            }))}
-                                            value={currentMedicines[index] ? currentMedicines[index].id : undefined}
-                                            disabled
-                                        />
-                                        <AssociationForm
-                                            style={{ position: 'relative' }}
-                                            getData={() => ({
-                                                predicate: `eq({medicine.id}, ${currentMedicines[index]})`,
-                                                type: 'medicine'
-                                            })}
-                                        />
-                                    </div>
-                                ))
-                            }
-                            {
-                                notYetChosenMedicines.length > 0 && (
-                                    <div className='Draft-StatusFormContainer'>
-                                        <Select
-                                            placeholder={<FormattedMessage id="app.patient.draft.drugs.placeholder" />}
-                                            options={notYetChosenMedicines.map(medicine => ({
-                                                value: medicine.id,
-                                                key: medicine.id,
-                                                text: <FormattedMessage id={`drug.${medicine.id}`} />
-                                            }))}
-                                            onChange={(e, option) => this.onDraftUpdate(undefined, option.value)}
-                                        />
-                                    </div>
-                                )
-                            }
-                        </div>
-                    }
+                    <div style={{ position: 'relative', zIndex: 1 }}>
+                        <p><b><FormattedMessage id="app.patient.draft.state" /></b></p>
+                        <p><FormattedMessage id="app.patient.draft.state.title" />: {currentState.name}</p>
+                        <p><FormattedMessage id="app.patient.draft.state.description" />: {currentState.description}</p>
+                        <React.Suspense fallback={() => <p>loading</p>}>
+                            <Drugs medicines={currentMedicines} toChoose={notYetChosenMedicines} onChange={(e, option) => this.onDraftUpdate(undefined, option.value)}/>
+                        </React.Suspense>
+                    </div>
                     <Divider />
                     <div style={{ position: 'relative' }}>
                         {attributes && attributes.map(attribute => (
