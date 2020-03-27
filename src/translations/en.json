@@ -60,6 +60,8 @@
     "app.patient.history.item.attributes.dose": "Dose",
     "app.patient.associations.title": "Associations",
     "app.patient.anamnesis.title": "Anamnesis",
+    "app.patient.anamnesis.form.placeholder.diseaseId": "Choose a disease",
+    "app.patient.anamnesis.form.placeholder.diseaseState": "Choose disease state",
     "drug.5": "Ventolin",
     "drug.6": "Solu-Cortef",
     "drug.7": "Salgim",
@@ -114,5 +116,8 @@
     "disease.2": "Asthma",
     "disease.3": "Diabetes",
     "disease.state.ACTIVE": "Active",
-    "disease.state.HEALED": "Healed"
+    "disease.state.HEALED": "Healed",
+    "contradiction.level.LIGHT": "Light Contradiction",
+    "contradiction.level.AVERAGE": "Average Contradiction",
+    "contradiction.level.HIGH": "High Contradiction"
 }

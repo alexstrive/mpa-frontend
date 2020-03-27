@@ -4,7 +4,9 @@ import useSWR from 'swr';
 import { FormattedMessage } from 'react-intl';
 
 import AnamnesisForm from './AnamnesisForm';
-import postAnamnesis from './postAnamnesis';
+
+import postAnamnesis from '../../api/postAnamnesis';
+import postContradictions from '../../api/postContradictions';
 
 const patientSWRKey = (patient) => `${process.env.REACT_APP_ANAMNESIS_ENDPOINT_URL}?patientId=${patient.id}`;
 
@@ -16,10 +18,20 @@ const Anamnesis = () => {
     const handleSubmit = useCallback(
         async (data = { diseaseId: [], diseaseState: [] }) => {
             // format request object
-            const cases = (data.diseaseId && data.diseaseId.reduce((acc, diseaseId, index) => ([...acc, { diseaseId, state: data.diseaseState[index] }]), [])) || [];
+            const cases = (
+                data.diseaseId &&
+                data.diseaseId.reduce(
+                    (acc, diseaseId, index) =>
+                        ([...acc, { diseaseId, state: data.diseaseState[index] }]),
+                    []
+                )
+            ) || [];
 
-            await fetch(postAnamnesis({ patientId: patient.id, cases }));
+            await postAnamnesis({ patientId: patient.id, cases });
             mutate(cases);
+
+            // recalculate patient's contradictions
+            await postContradictions({ patientId: patient.id });
         },
         []
     );
