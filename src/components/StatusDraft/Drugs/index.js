@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import DrugList from './DrugList';
 import DrugSelect from './DrugSelect';
 import { enchantWithContradictions } from './enchantWithContradictions';
-import postContradictions from '../../api/postContradictions';
+import postContradictions from '../../../api/postContradictions';
 
 const Drugs = ({ medicines, toChoose, onChange }) => {
     const patient = useSelector(state => state.patient);
@@ -25,7 +25,6 @@ const Drugs = ({ medicines, toChoose, onChange }) => {
                 <DrugSelect items={toChooseWithContradictions} onSelect={
                     async (e, option) => {
                         postContradictions({ patientId: patient.id });
-                        console.log('asdadjadhaskdjh');
                         onChange(e, option);
                     }
                 }/>

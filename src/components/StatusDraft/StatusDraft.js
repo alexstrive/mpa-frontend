@@ -9,7 +9,7 @@ import * as nextStatesThunks from '../../redux/thunks/nextStates';
 import * as diseaseThunks from '../../redux/thunks/disease';
 import { toast } from 'react-semantic-toasts';
 import './StatusDraft.css';
-import Drugs from '../Drugs';
+import Drugs from './Drugs';
 
 import { FormattedMessage, FormattedDate } from 'react-intl';
 
