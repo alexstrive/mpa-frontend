@@ -41,6 +41,8 @@
     "app.patient.draft.nextState.errors.title": "Errors",
     "app.patient.draft.nextState.errors.code": "Code",
     "app.patient.draft.nextState.errors.reason": "Reason",
+    "app.patient.draft.drugs.contradictions.substance.title": "Patient use:",
+    "app.patient.draft.drugs.contradictions.disease.title": "Patient has:",
     "app.patient.status.title": "Status",
     "app.patient.status.description": "Description",
     "app.patient.status.analysis.title": "Analysis",

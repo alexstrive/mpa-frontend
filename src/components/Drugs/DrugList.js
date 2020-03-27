@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { List } from 'semantic-ui-react';
+
 import DrugItem from './DrugItem';
 
 const DrugList = ({ items }) => {
-    return (
-        <div>
-            <h3><FormattedMessage id="app.patient.draft.drugs" /></h3>
-            {items.map((drug, index) => <DrugItem values={drug} />)}
-        </div>
-    );
+    return (<>
+        <h3><FormattedMessage id="app.patient.draft.drugs" /></h3>
+        <List>
+            {items.map((drug, index) => (<List.Item><DrugItem values={drug} key={drug.id} /></List.Item>))}
+        </List>
+    </>);
 };
 
 DrugList.propTypes = {

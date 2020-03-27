@@ -25,6 +25,7 @@ const Drugs = ({ medicines, toChoose, onChange }) => {
                 <DrugSelect items={toChooseWithContradictions} onSelect={
                     async (e, option) => {
                         postContradictions({ patientId: patient.id });
+                        console.log('asdadjadhaskdjh');
                         onChange(e, option);
                     }
                 }/>

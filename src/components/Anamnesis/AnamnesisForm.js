@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Form, Grid } from 'semantic-ui-react';
 import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';

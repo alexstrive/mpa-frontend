@@ -1,26 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Select } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 import { FormattedMessage } from 'react-intl';
+
+import DrugItem from './DrugItem';
 
 const DrugSelect = ({ items, onSelect }) => {
     return (
         <div className='Draft-StatusFormContainer'>
-            <Select
+            <Dropdown
                 placeholder={<FormattedMessage id="app.patient.draft.drugs.placeholder" />}
-                options={items.map(medicine => {
-                    const maxContradictionLevel = medicine.contradictions.MAX;
-                    const labelColor = maxContradictionLevel ? maxContradictionLevel.color : 'none';
-
-                    return {
-                        value: medicine.id,
-                        key: medicine.id,
-                        text: <FormattedMessage id={`drug.${medicine.id}`} />,
-                        label: { circular: true, empty: true, color: labelColor }
-                    };
-                })}
-                onChange={onSelect}
-            />
+                pointing='top'
+                selection
+            >
+                <Dropdown.Menu>
+                    {items.map(medicine => <DrugItem values={medicine} onClick={onSelect} key={medicine.id}/>)}
+                </Dropdown.Menu>
+            </Dropdown>
         </div>
     );
 };
