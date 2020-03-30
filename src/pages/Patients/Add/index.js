@@ -1,14 +1,13 @@
 import React, { useCallback } from 'react';
 import { Button, Form, Input, Dropdown, Header } from 'semantic-ui-react';
-
+import useSWR from 'swr';
 import SemanticDatepicker from 'react-semantic-ui-datepickers';
 import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-
+import { useHistory } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 
 import * as service from '../../../Services/patientService';
-import useSWR from 'swr';
 
 const genderOptions = [
     { key: 'm', text: <FormattedMessage id="app.createPatient.gender.male"/>, value: 'male' },
@@ -16,6 +15,8 @@ const genderOptions = [
 ];
 
 const AddPatient = () => {
+    const { mutate, data: patients } = useSWR(`${process.env.REACT_APP_ENDPOINT_URL}/patients`, { initialData: [], suspense: true });
+    const history = useHistory();
     const { handleSubmit, control, setValue } = useForm();
 
     const handleAddPatient = useCallback(async (values) => {
@@ -30,6 +31,8 @@ const AddPatient = () => {
         };
 
         await service.createPatient(patientData);
+        await mutate([...patients, patientData]);
+        history.push('/patients');
     });
 
     return (

@@ -11,7 +11,7 @@ const DrugItem = ({ values: { id, contradictions }, onClick }) => {
     const dropdownItem = <Dropdown.Item
         value={`drug.${id}`}
         label={{ color: labelColor, circular: true, empty: true }}
-        text={ <FormattedMessage id={`drug.${id}`} />}
+        text={ <span style={{ marginLeft: 10 }}><FormattedMessage id={`drug.${id}`} /></span>}
         onClick={() => onClick(null, { value: id })}
     />;
 

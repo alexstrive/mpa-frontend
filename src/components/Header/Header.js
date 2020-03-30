@@ -14,11 +14,6 @@ export const Header = () => {
                     <FormattedMessage id={'app.menu.patients'} />
                 </Link>
             </Menu.Item>
-            <Menu.Item>
-                <Link to={'/drugs'} exact>
-                    <FormattedMessage id={'app.menu.drugs'} />
-                </Link>
-            </Menu.Item>
 
             <Menu.Menu position="right">
                 <Menu.Item><LanguageSelector /></Menu.Item>

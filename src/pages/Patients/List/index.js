@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import useSWR from 'swr';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { Header, List, Button, Icon } from 'semantic-ui-react';

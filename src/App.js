@@ -12,7 +12,6 @@ import 'semantic-ui-css/components/icon.min.css';
 import 'semantic-ui-css/components/message.min.css';
 import 'semantic-ui-css/components/header.min.css';
 
-import Drugs from './pages/Drugs';
 import Drug from './pages/Drug';
 import Patients from './pages/Patients';
 import { Patient } from './components/Patient/Patient';
@@ -25,7 +24,6 @@ export const App = () => (
         <main className={'Main'}>
             <Suspense fallback={() => 'loading'}>
                 <Switch>
-                    <Route path='/drugs' component={Drugs}/>
                     <Route path='/drug/:id' component={Drug} />
                     <Route path='/patients' component={Patients}/>
                     <Route path='/patient/:patientId' component={Patient} />
