@@ -30,6 +30,10 @@
     "app.patient.draft.attributes.title": "Analysis/Symptom",
     "app.patient.draft.attributes.result": "Result",
     "app.drugs.title": "Drugs",
+    "app.drug.sideEffects.legend.header.title": "Frequency title",
+    "app.drug.sideEffects.legend.header.frequency": "Frequency value",
+    "app.drug.sideEffects.table.header.title": "Side effect",
+    "app.drug.sideEffects.table.header.frequency": "Frequency",
     "attributes.data.observed": "Observed",
     "attributes.data.positive": "Positive",
     "attributes.data.negative": "Negative",
@@ -124,5 +128,15 @@
     "disease.state.HEALED": "Healed",
     "contradiction.level.LIGHT": "Light Contradiction",
     "contradiction.level.AVERAGE": "Average Contradiction",
-    "contradiction.level.HIGH": "High Contradiction"
+    "contradiction.level.HIGH": "High Contradiction",
+    "sideEffect.1": "Side Effect 1",
+    "sideEffect.2": "Side Effect 2",
+    "sideEffect.3": "Side Effect 3",
+    "frequency.veryCommon": "Very common",
+    "frequency.common": "Common",
+    "frequency.uncommon": "Uncommon",
+    "frequency.rare": "Rare",
+    "frequency.veryRare": "Very rare",
+    "frequency.greater2": "Greater 2%",
+    "frequency.less2": "Fewer 2%"
 }

@@ -3,41 +3,32 @@ import { useSelector } from 'react-redux';
 import { Container, Header, Tab } from 'semantic-ui-react';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-
+import SideEffects from './SideEffects';
 const sideEffectsScales = [
     {
         legend: {
-            __units: 'case',
-            often: '100',
-            rare: '1000000',
-            veryCommon: '100000'
+            __unit: 'cases',
+            veryCommon: { gt: 10 },
+            common: { from: 10, to: 100 },
+            uncommon: { from: 100, to: 1000 },
+            rare: { from: 1000, to: 10000 },
+            veryRare: { lt: 10000 }
         },
         items: [
-            { id: 1, frequency: 'veryCommon' },
-            { id: 2, frequency: 'rare' },
-            { id: 3, frequency: 'often' }
+            { id: 1, value: 'veryCommon' },
+            { id: 2, value: 'rare' },
+            { id: 3, value: 'common' }
         ]
     }, {
         legend: {
-            __units: 'percent',
-            often: '70',
-            rare: '10',
-            veryCommon: '50'
+            __unit: 'percents',
+            greater2: { gt: 2 },
+            less2: { lt: 2 }
         },
         items: [
-            { id: 1, frequency: 'veryCommon' },
-            { id: 2, frequency: 'rare' },
-            { id: 3, frequency: 'often' }
-        ]
-    }, {
-        legend: {
-            __units: 'percent-interval',
-            less2: '0-2',
-            more2: '2-100'
-        },
-        items: [
-            { id: 1, frequency: 'less2' },
-            { id: 2, frequency: 'more2' }
+            { id: 1, value: 'greater2' },
+            { id: 2, value: 'greater2' },
+            { id: 3, value: 'less2' }
         ]
     }
 ];
@@ -52,7 +43,7 @@ const Drug = () => {
     const tabs = sideEffectsScales.map((sideEffects, i) => (
         {
             menuItem: `Side Effects ${i}`,
-            render: () => <Tab.Pane attached={false}>Tab 3 Content</Tab.Pane>
+            render: () => <Tab.Pane attached={false}><SideEffects values={sideEffects} /></Tab.Pane>
         }
     ));
 
