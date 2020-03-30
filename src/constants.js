@@ -1,35 +1,10 @@
 import React from 'react';
 
-import { PatientsList } from './components/PatientsList/PatientsList';
-import { Patient } from './components/Patient/Patient';
 import { Associations } from './components/Associations/Associations';
 import { CurrentState } from './components/CurrentState/CurrentState';
 import { States } from './components/States/States';
-import { NewPatientForm } from './components/NewPatientForm/NewPatientForm';
 import { PatientHistory } from './components/PatientHistory/PatientHistory';
-
 import Anamnesis from './components/Anamnesis';
-
-export const headerRoutes = [
-    {
-        name: 'Пациенты',
-        path: '/patients',
-        localeId: 'app.menu.showPatients',
-        component: PatientsList,
-        exact: true
-    },
-    {
-        name: 'Создать пациента',
-        path: '/patients/new',
-        localeId: 'app.menu.createPatient',
-        component: NewPatientForm,
-        exact: true
-    },
-    {
-        path: '/patient/:patientId',
-        component: Patient
-    }
-];
 
 export const sidebarRoutes = [
     {

@@ -1,8 +1,7 @@
-import React from 'react';
-import { PatientsList } from './components/PatientsList/PatientsList';
+import React, { Suspense } from 'react';
+
 import { Route, Switch } from 'react-router-dom';
 import { Header } from './components/Header/Header';
-import { headerRoutes } from './constants';
 import { SemanticToastContainer } from 'react-semantic-toasts';
 
 import 'react-semantic-toasts/styles/react-semantic-alert.css';
@@ -13,17 +12,26 @@ import 'semantic-ui-css/components/icon.min.css';
 import 'semantic-ui-css/components/message.min.css';
 import 'semantic-ui-css/components/header.min.css';
 
+import Drugs from './pages/Drugs';
+import Drug from './pages/Drug';
+import Patients from './pages/Patients';
+import { Patient } from './components/Patient/Patient';
+
 import './App.css';
 
 export const App = () => (
     <div className="App">
         <Header/>
         <main className={'Main'}>
-            <Switch>
-                <Route exact path='/' component={PatientsList}/>
-                {headerRoutes.map(route =>
-                    <Route path={route.path} component={route.component} key={route.path} exact={route.exact}/>)}
-            </Switch>
+            <Suspense fallback={() => 'loading'}>
+                <Switch>
+                    <Route path='/drugs' component={Drugs}/>
+                    <Route path='/drug/:id' component={Drug} />
+                    <Route path='/patients' component={Patients}/>
+                    <Route path='/patient/:patientId' component={Patient} />
+                </Switch>
+            </Suspense>
+
         </main>
         <SemanticToastContainer position='bottom-right' />
     </div>
