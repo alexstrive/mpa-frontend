@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
-import { Container, Header, Tab } from 'semantic-ui-react';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+
+import { Container, Header, Tab } from 'semantic-ui-react';
+
 import SideEffects from './SideEffects';
+import SideEffectsBuilder from './SideEffectsBuilder';
+
 const sideEffectsScales = [
     {
         legend: {
@@ -38,14 +42,19 @@ const Drug = () => {
     const drugs = useSelector(state => state.medicines);
 
     const drug = drugs
-        .filter(insideDrug => insideDrug.id === Number.parseInt(id))[0];
+        .filter(currentDrug => currentDrug.id === Number.parseInt(id))[0];
 
-    const tabs = sideEffectsScales.map((sideEffects, i) => (
-        {
-            menuItem: `Side Effects ${i}`,
-            render: () => <Tab.Pane attached={false}><SideEffects values={sideEffects} /></Tab.Pane>
-        }
-    ));
+    const tabs = sideEffectsScales
+        .map((sideEffects, i) => (
+            {
+                menuItem: `Side Effects ${i + 1}`,
+                render: () => <SideEffects values={sideEffects} />
+            }
+        ))
+        .concat({
+            menuItem: { key: 'add', icon: 'add', content: 'Add new side effects' },
+            render: () => <SideEffectsBuilder />
+        });
 
     return (
         <Container>
@@ -53,10 +62,13 @@ const Drug = () => {
                 <FormattedMessage id={`drug.${id}`} />
                 <Header.Subheader>{drug && drug.name}</Header.Subheader>
             </Header>
-            <Tab
-                menu={{ secondary: true, pointing: true }}
-                panes={tabs}
-            />
+            <Suspense fallback={'loading'}>
+                <Tab
+                    menu={{ secondary: true }}
+                    panes={tabs}
+                />
+            </Suspense>
+
         </Container>
     );
 };

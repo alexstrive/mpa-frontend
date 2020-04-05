@@ -1,5 +1,5 @@
 import React from 'react';
-import { Divider, Table } from 'semantic-ui-react';
+import { Table, Tab } from 'semantic-ui-react';
 
 import { FormattedMessage } from 'react-intl';
 
@@ -38,19 +38,29 @@ const LegendSideEffects = ({ unit, values }) => {
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell width={3}>
-                        <FormattedMessage id="app.drug.sideEffects.legend.header.title"/>
+                        <FormattedMessage
+                            id="app.drug.sideEffects.legend.header.title"
+                        />
                     </Table.HeaderCell>
                     <Table.HeaderCell>
-                        <FormattedMessage id="app.drug.sideEffects.legend.header.frequency"/>
+                        <FormattedMessage
+                            id="app.drug.sideEffects.legend.header.frequency"
+                        />
                     </Table.HeaderCell>
                 </Table.Row>
             </Table.Header>
 
-            {values.map(([legend, frequency], i) =>
-                (<Table.Row key={i}>
-                    <Table.Cell><FormattedMessage id={`frequency.${legend}`}/></Table.Cell>
-                    <Table.Cell>{formatter(frequency)}</Table.Cell>
-                </Table.Row>))}
+            {values
+                .map(([legend, frequency], i) =>
+                    (<Table.Row key={i}>
+                        <Table.Cell>
+                            <FormattedMessage
+                                id={`frequency.${legend}`}
+                            />
+                        </Table.Cell>
+                        <Table.Cell>{formatter(frequency)}</Table.Cell>
+                    </Table.Row>)
+                )}
         </Table>
     );
 };
@@ -58,37 +68,49 @@ const LegendSideEffects = ({ unit, values }) => {
 const SideEffects = ({ values }) => {
     const unit = values.legend.__unit;
 
-    const legendItems = Object.entries(values.legend).filter(([title, frequency]) => title !== '__unit');
+    const legendItems = Object
+        .entries(values.legend)
+        .filter(([title, _]) => title !== '__unit');
+
     return (
-        <div>
-            <LegendSideEffects unit={unit} values={legendItems}></LegendSideEffects>
-            <Divider/>
+        <Tab.Pane>
+            <LegendSideEffects unit={unit} values={legendItems} />
+
             <Table>
                 <Table.Header>
                     <Table.Row>
                         <Table.HeaderCell>
-                            <FormattedMessage id="app.drug.sideEffects.table.header.title" />
+                            <FormattedMessage
+                                id="app.drug.sideEffects.table.header.title"
+                            />
                         </Table.HeaderCell>
                         <Table.HeaderCell>
-                            <FormattedMessage id="app.drug.sideEffects.table.header.frequency" />
+                            <FormattedMessage
+                                id="app.drug.sideEffects.table.header.frequency"
+                            />
                         </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
-                    {values.items.map((sideEffect) =>
-                        (<Table.Row>
-                            <Table.Cell width={3}><FormattedMessage id={`sideEffect.${sideEffect.id}`} /></Table.Cell>
-                            <Table.Cell>
-                                <FormattedMessage id={`frequency.${sideEffect.value}`}></FormattedMessage>
-
-                            </Table.Cell>
-                        </Table.Row>))
-                    }
-
+                    {values.items
+                        .map((sideEffect) =>
+                            (<Table.Row>
+                                <Table.Cell width={3}>
+                                    <FormattedMessage
+                                        id={`sideEffect.${sideEffect.id}`}
+                                    />
+                                </Table.Cell>
+                                <Table.Cell>
+                                    <FormattedMessage
+                                        id={`frequency.${sideEffect.value}`}
+                                    />
+                                </Table.Cell>
+                            </Table.Row>)
+                        )}
                 </Table.Body>
             </Table>
-        </div>
+        </Tab.Pane>
 
     );
 };
