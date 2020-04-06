@@ -1,6 +1,6 @@
 import React from 'react';
 import { Table, Tab } from 'semantic-ui-react';
-
+import legends from './legends';
 import { FormattedMessage } from 'react-intl';
 
 const caseFormatter = (value) => {
@@ -31,8 +31,9 @@ const percentFormatter = (value) => {
     }
 };
 
-const LegendSideEffects = ({ unit, values }) => {
-    const formatter = unit === 'cases' ? caseFormatter : percentFormatter;
+const LegendSideEffects = ({ units, values }) => {
+    const formatter = units === 'cases' ? caseFormatter : percentFormatter;
+
     return (
         <Table>
             <Table.Header>
@@ -50,7 +51,7 @@ const LegendSideEffects = ({ unit, values }) => {
                 </Table.Row>
             </Table.Header>
 
-            {values
+            {Object.entries(values)
                 .map(([legend, frequency], i) =>
                     (<Table.Row key={i}>
                         <Table.Cell>
@@ -65,16 +66,10 @@ const LegendSideEffects = ({ unit, values }) => {
     );
 };
 
-const SideEffects = ({ values }) => {
-    const unit = values.legend.__unit;
-
-    const legendItems = Object
-        .entries(values.legend)
-        .filter(([title, _]) => title !== '__unit');
-
+const SideEffectGroup = ({ units, items }) => {
     return (
         <Tab.Pane>
-            <LegendSideEffects unit={unit} values={legendItems} />
+            <LegendSideEffects units={units} values={legends[units]} />
 
             <Table>
                 <Table.Header>
@@ -93,7 +88,7 @@ const SideEffects = ({ values }) => {
                 </Table.Header>
 
                 <Table.Body>
-                    {values.items
+                    {items
                         .map((sideEffect) =>
                             (<Table.Row>
                                 <Table.Cell width={3}>
@@ -103,7 +98,7 @@ const SideEffects = ({ values }) => {
                                 </Table.Cell>
                                 <Table.Cell>
                                     <FormattedMessage
-                                        id={`frequency.${sideEffect.value}`}
+                                        id={`frequency.${sideEffect.frequency}`}
                                     />
                                 </Table.Cell>
                             </Table.Row>)
@@ -115,4 +110,4 @@ const SideEffects = ({ values }) => {
     );
 };
 
-export default SideEffects;
+export default SideEffectGroup;

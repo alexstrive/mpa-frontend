@@ -1,65 +1,47 @@
 import React, { Suspense } from 'react';
+import useSWR from 'swr';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
-
 import { Container, Header, Tab } from 'semantic-ui-react';
 
-import SideEffects from './SideEffects';
-import SideEffectsBuilder from './SideEffectsBuilder';
-
-const sideEffectsScales = [
-    {
-        legend: {
-            __unit: 'cases',
-            veryCommon: { gt: 10 },
-            common: { from: 10, to: 100 },
-            uncommon: { from: 100, to: 1000 },
-            rare: { from: 1000, to: 10000 },
-            veryRare: { lt: 10000 }
-        },
-        items: [
-            { id: 1, value: 'veryCommon' },
-            { id: 2, value: 'rare' },
-            { id: 3, value: 'common' }
-        ]
-    }, {
-        legend: {
-            __unit: 'percents',
-            greater2: { gt: 2 },
-            less2: { lt: 2 }
-        },
-        items: [
-            { id: 1, value: 'greater2' },
-            { id: 2, value: 'greater2' },
-            { id: 3, value: 'less2' }
-        ]
-    }
-];
+import SideEffectGroup from './SideEffectGroup';
+import SideEffectGroupBuilder from './SideEffectGroupBuilder';
 
 const Drug = () => {
-    const { id } = useParams();
+    const { id: drugId } = useParams();
     const drugs = useSelector(state => state.medicines);
 
-    const drug = drugs
-        .filter(currentDrug => currentDrug.id === Number.parseInt(id))[0];
+    const { data: sideEffectGroups, mutate } = useSWR(`${process.env.REACT_APP_SIDEEFFECTS_ENDPOINT_URL}?drugId=${drugId}`, {
+        suspense: true
+    });
 
-    const tabs = sideEffectsScales
-        .map((sideEffects, i) => (
+    const handleSubmit = (units, items) => {
+        mutate([...sideEffectGroups, {
+            units,
+            items
+        }]);
+    };
+
+    const drug = drugs
+        .filter(currentDrug => currentDrug.id === Number.parseInt(drugId))[0];
+
+    const tabs = sideEffectGroups
+        .map((sideEffectGroup, i) => (
             {
                 menuItem: `Side Effects ${i + 1}`,
-                render: () => <SideEffects values={sideEffects} />
+                render: () => <SideEffectGroup units={sideEffectGroup.units} items={sideEffectGroup.items} />
             }
         ))
         .concat({
             menuItem: { key: 'add', icon: 'add', content: 'Add new side effects' },
-            render: () => <SideEffectsBuilder />
+            render: () => <SideEffectGroupBuilder drugId={drugId} onSubmit={handleSubmit} />
         });
 
     return (
         <Container>
             <Header size="large">
-                <FormattedMessage id={`drug.${id}`} />
+                <FormattedMessage id={`drug.${drugId}`} />
                 <Header.Subheader>{drug && drug.name}</Header.Subheader>
             </Header>
             <Suspense fallback={'loading'}>

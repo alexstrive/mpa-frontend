@@ -3,10 +3,10 @@ import { Tab, Dropdown, Form, Grid, Button } from 'semantic-ui-react';
 import { useForm, useFieldArray, Controller } from 'react-hook-form';
 import { FormattedMessage } from 'react-intl';
 import useSWR from 'swr';
+import legends from './legends';
+import { createNewGroup } from '../../api/sideEffects';
 
-import { createNewScale } from '../../api/sideEffects';
-
-const unitOptions = [
+const unitsOptions = [
     {
         key: 'cases',
         text: <FormattedMessage id="app.drug.sideEffects.units.cases"/>,
@@ -19,25 +19,9 @@ const unitOptions = [
     }
 ];
 
-const legends = {
-    'cases': {
-        __unit: 'cases',
-        veryCommon: { gt: 10 },
-        common: { from: 10, to: 100 },
-        uncommon: { from: 100, to: 1000 },
-        rare: { from: 1000, to: 10000 },
-        veryRare: { lt: 10000 }
-    },
-    'percents': {
-        __unit: 'percents',
-        greater2: { gt: 2 },
-        less2: { lt: 2 }
-    }
-};
-
-const SideEffectsBuilder = () => {
+const SideEffectsBuilder = ({ drugId, onSubmit }) => {
     const { data: serverSupportedSideEffectIds } = useSWR(
-        `${process.env.REACT_APP_SIDEEFFECTS_ENDPOINT_URL}/getSupportedIds`,
+        `${process.env.REACT_APP_SIDEEFFECTS_ENDPOINT_URL}/supportedIds`,
         { suspense: true, initialData: [] }
     );
 
@@ -51,14 +35,14 @@ const SideEffectsBuilder = () => {
             [serverSupportedSideEffectIds])
     );
 
-    const { register, getValues, setValue, handleSubmit, control } = useForm({
+    const { register, getValues, handleSubmit, control, reset } = useForm({
         defaultValues: {
-            legend: legends.cases,
+            units: 'cases',
             sideEffects: []
         }
     });
 
-    const { legend } = getValues();
+    const { units } = getValues();
 
     const {
         fields: sideEffects,
@@ -70,14 +54,13 @@ const SideEffectsBuilder = () => {
     });
 
     const frequencyOptions = useMemo(
-        () => Object.keys(legend)
-            .filter(key => key !== '__unit')
+        () => Object.keys(legends[units])
             .map(key => ({
                 key,
                 text: <FormattedMessage id={`frequency.${key}`}/>,
                 value: key
             })),
-        [legend]
+        [units]
     );
 
     const remainingSideEffectOptions = useMemo(
@@ -92,13 +75,14 @@ const SideEffectsBuilder = () => {
         [sideEffects]
     );
 
-    const saveSideEffects = (data) => {
-        createNewScale(data.legend, data.sideEffects);
+    const saveSideEffectGroup = (data) => {
+        createNewGroup(drugId, data.units, data.sideEffects);
+        onSubmit(data.units, data.sideEffects);
     };
 
     return (
         <Tab.Pane>
-            <Form onSubmit={handleSubmit(saveSideEffects)}>
+            <Form onSubmit={handleSubmit(saveSideEffectGroup)}>
                 <Form.Field>
                     <label>
                         <FormattedMessage
@@ -114,10 +98,12 @@ const SideEffectsBuilder = () => {
                         {(placeholder) =>
                             <Dropdown
                                 placeholder={placeholder}
-                                options={unitOptions}
+                                options={unitsOptions}
                                 selection
-                                ref={register('legend')}
-                                onChange={(_, data) => setValue('legend', legends[data.value])}
+                                ref={register('units')}
+                                onChange={(_, data) => reset({
+                                    units: data.value
+                                })}
                                 defaultValue={'cases'}
                             />
                         }
