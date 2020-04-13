@@ -39,7 +39,7 @@ const Anamnesis = () => {
     return (
         <div>
             <h2>
-                <FormattedMessage id="app.patient.anamnesis.title"/>
+                <FormattedMessage id="app.patient.anamnesis"/>
             </h2>
             <AnamnesisForm anamnesis={anamnesis} onSubmit={handleSubmit}/>
         </div>

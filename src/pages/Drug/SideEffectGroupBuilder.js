@@ -164,8 +164,7 @@ const SideEffectsBuilder = ({ drugId, onSubmit }) => {
                                     fluid
                                     content={
                                         <FormattedMessage
-                                            id="app.drug.sideEffects.builder.addSideEffect"
-                                            defaultMessage="Add side effect"
+                                            id="app.drug.sideEffects.builder.add"
                                         />
                                     }
                                     type="button"
@@ -187,8 +186,7 @@ const SideEffectsBuilder = ({ drugId, onSubmit }) => {
                                     type="submit"
                                     content={
                                         <FormattedMessage
-                                            id="app.drug.sideEffects.builder.submit"
-                                            defaultMessage="Submit"
+                                            id="app.drug.sideEffects.builder.save"
                                         />
                                     }
                                     positive

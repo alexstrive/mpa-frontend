@@ -10,7 +10,7 @@ const ListPatients = () => {
     return (
         <div>
             <Header size="huge">
-                <FormattedMessage id="app.patients.title"/>
+                <FormattedMessage id="app.patients"/>
             </Header>
             <Button
                 as={Link}
@@ -20,7 +20,7 @@ const ListPatients = () => {
                 to="/patients/add"
             >
                 <Icon name="add" />
-                <FormattedMessage id="app.patients.add.title" />
+                <FormattedMessage id="app.patients.add" />
             </Button>
             <List
                 selection

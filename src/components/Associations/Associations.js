@@ -12,7 +12,7 @@ export class AssociationsContainer extends React.PureComponent {
 
         return (
             <div className='States-Draft'>
-                <h2><FormattedMessage id="app.patient.associations.title" /></h2>
+                <h2><FormattedMessage id="app.patient.associations" /></h2>
                 {associations.map(association => {
                     return (
                         <div key={association.id}>

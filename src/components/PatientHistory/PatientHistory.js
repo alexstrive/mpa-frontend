@@ -23,7 +23,7 @@ class PatientHistoryContainer extends React.Component {
 
         return (
             <section className="History">
-                <h3><FormattedMessage id="app.patient.history.title" /></h3>
+                <h3><FormattedMessage id="app.patient.history" /></h3>
                 {history ? history.map(event =>
                     <div key={event.id}>
                         {console.log(event)}

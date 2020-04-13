@@ -10,8 +10,8 @@ import { FormattedMessage } from 'react-intl';
 import * as service from '../../../Services/patientService';
 
 const genderOptions = [
-    { key: 'm', text: <FormattedMessage id="app.createPatient.gender.male"/>, value: 'male' },
-    { key: 'f', text: <FormattedMessage id="app.createPatient.gender.female" />, value: 'female' }
+    { key: 'm', text: <FormattedMessage id="app.patients.add.gender.male"/>, value: 'male' },
+    { key: 'f', text: <FormattedMessage id="app.patients.add.gender.female" />, value: 'female' }
 ];
 
 const AddPatient = () => {
@@ -38,7 +38,7 @@ const AddPatient = () => {
     return (
         <>
             <Header>
-                <FormattedMessage id="app.createPatient.title"/>
+                <FormattedMessage id="app.patients.add"/>
             </Header>
             <Form onSubmit={handleSubmit(handleAddPatient)}>
                 <Controller
@@ -46,7 +46,7 @@ const AddPatient = () => {
                     as={
                         <Form.Field>
                             <label >
-                                <FormattedMessage id="app.createPatient.name"/>
+                                <FormattedMessage id="app.patients.add.name"/>
                             </label>
                             <Input />
                         </Form.Field >
@@ -59,7 +59,7 @@ const AddPatient = () => {
                     as={
                         <Form.Field>
                             <label >
-                                <FormattedMessage id="app.createPatient.gender"/>
+                                <FormattedMessage id="app.patients.add.gender"/>
                             </label>
                             <Dropdown
                                 selection
@@ -76,7 +76,7 @@ const AddPatient = () => {
                     as={
                         <Form.Field>
                             <label>
-                                <FormattedMessage id="app.createPatient.age" />
+                                <FormattedMessage id="app.patients.add.birthday" />
                             </label>
                             <SemanticDatepicker
                                 onDateChange={(value) => {
@@ -91,7 +91,7 @@ const AddPatient = () => {
                 <Button
                     positive
                     icon="checkmark"
-                    content={<FormattedMessage id="app.createPatient.submit" />}
+                    content={<FormattedMessage id="app.patients.add.submit" />}
                     type="submit"
                 />
             </Form>

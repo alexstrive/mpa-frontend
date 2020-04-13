@@ -160,7 +160,7 @@ export class StatusDraftContainer extends React.Component {
                         <Loader />
                     </Dimmer>
                     <AssociationForm getData={this.getAssociationData} />
-                    <h2 className='States-Heading'><FormattedMessage id="app.patient.draft.title" /></h2>
+                    <h2 className='States-Heading'><FormattedMessage id="app.patient.draft" /></h2>
                     <time className='Draft-UpdatedOn'>
                         <FormattedMessage id="app.patient.draft.changed"
                             values={{

@@ -11,7 +11,7 @@ export const Header = () => {
         <Menu attached="top">
             <Menu.Item>
                 <Link to={'/patients'} exact>
-                    <FormattedMessage id={'app.menu.patients'} />
+                    <FormattedMessage id={'app.patients'} />
                 </Link>
             </Menu.Item>
 

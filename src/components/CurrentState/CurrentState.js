@@ -7,7 +7,7 @@ class CurrentStateContainer extends React.PureComponent {
         const { state } = status;
         return (
             <section className="CurrentState">
-                <h2><FormattedMessage id="app.patient.status.title"/></h2>
+                <h2><FormattedMessage id="app.patient.status"/></h2>
                 <h3>{state.name}</h3>
                 <div>
                     <h4><FormattedMessage id="app.patient.status.description" /></h4>

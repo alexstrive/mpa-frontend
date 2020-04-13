@@ -20,7 +20,6 @@ const Drugs = ({ medicines, toChoose, onChange }) => {
     return (
         <div>
             <DrugList items={medicinesWithContradictions} />
-
             {toChooseWithContradictions.length > 0 && (
                 <DrugSelect items={toChooseWithContradictions} onSelect={
                     async (e, option) => {

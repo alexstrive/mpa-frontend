@@ -19,8 +19,12 @@ const PopupContradiction = ({ trigger, details }) => {
                 {doesMedicineHasDiseaseContradictions && <div>
                     <b><FormattedMessage id="app.patient.draft.drugs.contradictions.disease.title"/></b>
                     <ul>
-                        {diseaseContradictions.map(contradiction =>
-                            <li key={contradiction.id}><FormattedMessage id={`disease.${contradiction.id}`}/></li>)}
+                        {diseaseContradictions.map(
+                            contradiction =>
+                                <li key={contradiction.id}>
+                                    <FormattedMessage id={`disease.${contradiction.id}`}/>
+                                </li>
+                        )}
                     </ul>
                 </div>}
 
@@ -28,7 +32,9 @@ const PopupContradiction = ({ trigger, details }) => {
                     <b><FormattedMessage id="app.patient.draft.drugs.contradictions.substance.title"/></b>
                     <ul>
                         {substanceContradictions.map(contradiction =>
-                            <li key={contradiction.id}><FormattedMessage id={`drug.${contradiction.id}`}/></li>)}
+                            <li key={contradiction.id}>
+                                <FormattedMessage id={`drug.${contradiction.id}`}/>
+                            </li>)}
                     </ul>
                 </div>}
 
