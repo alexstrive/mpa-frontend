@@ -147,5 +147,7 @@
     "drug.sideEffects.group": "Шкала {number}",
     "drug.sideEffects.group.add": "Добавить новую шкалу",
     "app.drug.sideEffects.builder.add": "Добавить побочный эффект",
-    "app.drug.sideEffects.builder.save": "Сохранить"
+    "app.drug.sideEffects.builder.save": "Сохранить",
+    "app.patient.draft.drugs.contradictions.disease.title": "У пациента в анамнезе:",
+    "app.patient.draft.drugs.contradictions.substance.title": "Пациент принимает: "
 }
