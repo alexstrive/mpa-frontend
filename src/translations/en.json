@@ -150,5 +150,21 @@
     "drug.sideEffects.group": "Group {number}",
     "drug.sideEffects.group.add": "Add group",
     "app.drug.sideEffects.builder.add": "Add side effect",
-    "app.drug.sideEffects.builder.save": "Submit"
+    "app.drug.sideEffects.builder.save": "Submit",
+    "substance.10": "Salbutamol",
+    "substance.11": "Propanol",
+    "substance.12": "Theophylline",
+    "substance.13": "Hydrocortisone",
+    "substance.14": "Prednisolone",
+    "substance.15": "Amphotericin",
+    "substance.16": "Formoterol",
+    "substance.17": "Hexoprenaline",
+    "substance.18": "Beclomethasone",
+    "substance.19": "Aminophylline",
+    "substance.20": "Dexamethasone",
+    "substance.21": "Fenoterol",
+    "substance.22": "Ipratropium bromide",
+    "substance.23": "Atropine-like substances",
+    "substance.24": "Beclomethasone",
+    "substance.25": "Mometasone"
 }

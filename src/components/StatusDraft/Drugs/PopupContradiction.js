@@ -33,7 +33,7 @@ const PopupContradiction = ({ trigger, details }) => {
                     <ul>
                         {substanceContradictions.map(contradiction =>
                             <li key={contradiction.id}>
-                                <FormattedMessage id={`drug.${contradiction.id}`}/>
+                                <FormattedMessage id={`substance.${contradiction.id}`}/>
                             </li>)}
                     </ul>
                 </div>}
