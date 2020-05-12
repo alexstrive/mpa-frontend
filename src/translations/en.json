@@ -6,7 +6,7 @@
     "app.patients.add": "Add patient",
     "app.patients.add.name": "Name",
     "app.patients.add.gender": "Gender",
-    "app.patients.add.birthday": "Age",
+    "app.patients.add.birthday": "Birthday",
     "app.patients.add.submit": "Save",
     "app.patients.add.gender.female": "Female",
     "app.patients.add.gender.male": "Male",

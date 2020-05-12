@@ -43,6 +43,9 @@ const AddPatient = () => {
             <Form onSubmit={handleSubmit(handleAddPatient)}>
                 <Controller
                     name="name"
+                    rules={{
+                        required: true
+                    }}
                     as={
                         <Form.Field>
                             <label >
@@ -56,6 +59,9 @@ const AddPatient = () => {
 
                 <Controller
                     name="gender"
+                    rules={{
+                        required: true
+                    }}
                     as={
                         <Form.Field>
                             <label >
@@ -73,6 +79,9 @@ const AddPatient = () => {
 
                 <Controller
                     name="birthDate"
+                    rules={{
+                        required: true
+                    }}
                     as={
                         <Form.Field>
                             <label>
